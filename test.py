@@ -44,7 +44,7 @@ class FlaskTestCase(unittest.TestCase):
 	def test_post_show_up(self):
 		tester = app.test_client(self)
 		response = tester.post('/login', data = dict(username = "admin", password = "admin"), follow_redirects = True)
-		self.assertIn('You were just logged in!', response.data)
+		self.assertIn('Hello from the shell', response.data)
 
 if __name__ == '__main__':
 	unittest.main()
