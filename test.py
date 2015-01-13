@@ -1,4 +1,4 @@
-from app import app
+from project import app
 import unittest
 
 class FlaskTestCase(unittest.TestCase):
@@ -19,20 +19,20 @@ class FlaskTestCase(unittest.TestCase):
 	def test_correct_login(self):
 		tester = app.test_client(self)
 		response = tester.post('/login', data = dict(username = "admin", password = "admin"), follow_redirects = True)
-		self.assertIn('You were just logged in!', response.data)
+		self.assertIn('You were logged in.', response.data)
 
 	# Ensure that login behaves correctly with the incorrect credentials
 	def test_incorrect_login(self):
 		tester = app.test_client(self)
 		response = tester.post('/login', data = dict(username = "wrong", password = "wrong"), follow_redirects = True)
-		self.assertIn('Invalid credentials. Please try again.', response.data)
+		self.assertIn('Invalid Credentials. please try again.', response.data)
 
 	# Ensure that logout behaves correctly.
 	def test_correct_logout(self):
 		tester = app.test_client(self)
 		tester.post('/login', data = dict(username = "admin", password = "admin"), follow_redirects = True)
 		response = tester.get('/logout', follow_redirects = True)
-		self.assertIn('You were just logged out!', response.data)
+		self.assertIn('You were logged out.', response.data)
 
 	# Ensure the main page requires login
 	def test_main_route_requires_login(self):
