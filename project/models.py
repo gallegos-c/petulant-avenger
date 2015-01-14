@@ -14,9 +14,10 @@ class BlogPost(db.Model):
 	description = db.Column(db.String, nullable = False)
 	author_id = db.Column(db.Integer, ForeignKey('users.id'))
 
-	def __init__(self, title, description):
+	def __init__(self, title, description, author_id):
 		self.title = title
 		self.description = description
+		self.author_id = author_id
 
 	def __repr__(self):
 		return '<{}>'.format(self.title)
@@ -37,6 +38,17 @@ class User(db.Model):
 		self.email = email
 		self.password = bcrypt.generate_password_hash(password)
 
+	def is_authenticated(self):
+		return True
+
+	def is_active(self):
+		return True
+
+	def is_anonymous(self):
+		return False
+
+	def get_id(self):
+		return unicode(self.id)
 
 	def __repr__(self):
 		return '<name {}>'.format(self.name)
